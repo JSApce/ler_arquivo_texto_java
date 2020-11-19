@@ -9,28 +9,16 @@ public class Program {
 	public static void main(String[] args) {
 
 		String path = "/home/nuti/in.txt";
-		FileReader fr = null;
-		BufferedReader br = null;
 
-		try {
-			fr = new FileReader(path);
-			br = new BufferedReader(fr);
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
 			String line = br.readLine();
 			while (line != null) {
 				System.out.println(line);
 				line = br.readLine();
 			}
-		} catch (IOException e1) {
-			System.err.println(e1.getMessage());
-		} finally {
-			try {
-				fr.close();
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
 		}
 
 	}
