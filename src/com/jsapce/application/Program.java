@@ -1,32 +1,38 @@
 package com.jsapce.application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		File file = new File("/home/nuti/in.txt");
-		Scanner sc = null;
+		String path = "/home/nuti/in.txt";
+		FileReader fr = null;
+		BufferedReader br = null;
+
 		try {
-			sc = new Scanner(file);
-			while (sc.hasNextLine()) {
-				System.out.println(sc.nextLine());
-				
+			fr = new FileReader(path);
+			br = new BufferedReader(fr);
+
+			String line = br.readLine();
+			while (line != null) {
+				System.out.println(line);
+				line = br.readLine();
 			}
-			
-			
-		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());
+		} catch (IOException e1) {
+			System.err.println(e1.getMessage());
 		} finally {
-			if(sc != null) {
-				sc.close();
+			try {
+				fr.close();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
 
 }
